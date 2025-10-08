@@ -18,12 +18,30 @@ Contents
 
 Quick start
 1) Point DNS A records for `api.<domain>`, `studio.<domain>`, `db.<domain>` to your VPS IP.
-2) Copy this repo to the VPS at `/monorepo` (recommended path) and run:
+2) Install using ONE of these methods:
 
-   - `cd /monorepo`
-   - `bash scripts/bootstrap.sh`
+   - One-liner (recommended; master branch):
 
-   The script is idempotent and will:
+     `curl -fsSL https://raw.githubusercontent.com/silvandiepen/multi-supa/master/scripts/remote-bootstrap.sh | bash -s -- --repo https://github.com/silvandiepen/multi-supa --branch master --dest /monorepo`
+
+   - Tarball (no git required):
+
+     ```bash
+     mkdir -p /monorepo && cd /monorepo
+     curl -fsSL -o repo.tar.gz https://codeload.github.com/silvandiepen/multi-supa/tar.gz/refs/heads/master
+     tar -xzf repo.tar.gz --strip-components=1
+     bash ./scripts/bootstrap.sh
+     ```
+
+   - Git clone:
+
+     ```bash
+     apt-get update && apt-get install -y git
+     git clone https://github.com/silvandiepen/multi-supa /monorepo
+     cd /monorepo && bash ./scripts/bootstrap.sh
+     ```
+
+   The bootstrap is idempotent and will:
    - Ask for domain, admin password (bcrypt), email, Cloudflare R2 settings, optional SMTP
    - Install Docker, Compose plugin, Node LTS, pnpm, awscli, Supabase CLI, jq, zip/unzip
    - Create `/opt/caddy/includes/{api,studio}`, `/srv`, `/var/backups/supabase`
@@ -33,7 +51,10 @@ Quick start
    - Create a first project `default`, generate Caddy includes, reload Caddy
    - Install systemd backup templates
 
-3) On completion, visit:
+3) During bootstrap:
+   - A TUI wizard (whiptail) guides you with defaults; you can review and edit fields before confirming. Falls back to plain prompts if TUI unavailable.
+
+4) On completion, visit:
    - Admin UI: `https://db.<domain>` (use the password you set)
    - API: `https://api.<domain>/default`
    - Studio: `https://studio.<domain>/default` (basic auth uses same bcrypt hash; user `admin`)
@@ -105,4 +126,3 @@ Build commands
 - Dev admin UI: `pnpm --filter admin-ui dev`
 
 Repository structure is designed to be portable and idempotent. Open issues or PRs if you run into rough edges.
-
