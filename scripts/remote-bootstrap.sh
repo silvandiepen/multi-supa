@@ -12,7 +12,7 @@ set -euo pipefail
 #
 
 REPO_URL=""
-BRANCH="main"
+BRANCH="master"
 DEST="/monorepo"
 OPEN_PORTS=1
 
@@ -22,7 +22,7 @@ Remote bootstrap installer
 
 Options:
   --repo <url>      GitHub repo URL (e.g., https://github.com/user/repo) [required]
-  --branch <name>   Branch to download (default: main)
+  --branch <name>   Branch to download (default: master)
   --dest <path>     Destination directory (default: /monorepo)
   --no-open-ports   Do not open ufw ports 80/443 automatically
 
@@ -82,4 +82,3 @@ cd "$DEST"
 bash ./scripts/bootstrap.sh
 
 echo "==> Done. Visit the Admin UI (db.<domain>), API, and Studio URLs after DNS/cert is ready."
-
