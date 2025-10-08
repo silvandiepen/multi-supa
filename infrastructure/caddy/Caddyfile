@@ -1,0 +1,20 @@
+# API: route by project path
+api.{env.DOMAIN} {
+  import /etc/caddy/includes/api/*.caddy
+  respond "unknown project" 404
+}
+
+# Studio: route by project path + basic auth
+studio.{env.DOMAIN} {
+  basicauth {
+    admin {env.ADMIN_BCRYPT_HASH}
+  }
+  import /etc/caddy/includes/studio/*.caddy
+  respond "unknown project" 404
+}
+
+# Admin interface
+db.{env.DOMAIN} {
+  reverse_proxy 127.0.0.1:6010
+}
+

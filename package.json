@@ -1,0 +1,20 @@
+{
+  "name": "multi-supa",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@9",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev:admin": "pnpm --filter admin-api dev",
+    "dev:ui": "pnpm --filter admin-ui dev",
+    "bootstrap": "bash ./scripts/bootstrap.sh",
+    "create": "bash ./scripts/create-project.sh",
+    "destroy": "bash ./scripts/destroy-project.sh",
+    "list": "bash ./scripts/list-projects.sh",
+    "backup:now": "bash ./scripts/backup-now.sh"
+  }
+}
+

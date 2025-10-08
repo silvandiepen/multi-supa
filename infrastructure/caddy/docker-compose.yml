@@ -1,0 +1,18 @@
+services:
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - ACME_AGREE=true
+      - EMAIL=${EMAIL}
+      - DOMAIN=${DOMAIN}
+      - ADMIN_BCRYPT_HASH=${ADMIN_BCRYPT_HASH}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./includes:/etc/caddy/includes:ro
+      - caddy_data:/data
+      - caddy_config:/config
+volumes:
+  caddy_data:
+  caddy_config:

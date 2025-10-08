@@ -1,0 +1,11 @@
+[Unit]
+Description=Nightly Supabase backup timer for %i
+
+[Timer]
+OnCalendar=02:30
+Persistent=true
+Unit=backup@%i.service
+
+[Install]
+WantedBy=timers.target
+

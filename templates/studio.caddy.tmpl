@@ -1,0 +1,6 @@
+@{project} path /{project}*
+handle @{project} {
+  uri strip_prefix /{project}
+  reverse_proxy 127.0.0.1:{studio_port}
+}
+

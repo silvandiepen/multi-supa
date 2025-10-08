@@ -1,0 +1,11 @@
+[Unit]
+Description=Supabase backup for %i
+After=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/supabase.env
+ExecStart=/monorepo/scripts/backup-now.sh %i
+User=root
+Group=root
+
